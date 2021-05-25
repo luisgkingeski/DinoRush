@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public Transform groundCheck;
     private Animator anim;
+    public MeshRenderer bgMesh;
     #endregion
 
     #region Variables
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     public float jumpForce;
     public float speed;
     private bool dead = false;
+    private bool faceRight = true;
 
     #endregion
 
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        bgMesh.material.mainTextureOffset = Vector2.zero;
     }
 
     void Update()
@@ -47,6 +50,18 @@ public class Player : MonoBehaviour
             anim.SetBool("Dead", true);
         }
 
+
+        if (faceRight)
+        {
+            transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+        }
+
+        bgMesh.transform.position = new Vector3(transform.position.x, bgMesh.transform.position.y, bgMesh.transform.position.z);
+
     }
 
     void FixedUpdate()
@@ -65,14 +80,24 @@ public class Player : MonoBehaviour
         Vector3 move = new Vector3(x * speed, rb.velocity.y, 0f);
         rb.velocity = move;
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A))
         {
             anim.SetBool("Run", true);
+            bgMesh.material.mainTextureOffset = new Vector2(bgMesh.material.mainTextureOffset.x - Time.fixedDeltaTime, bgMesh.material.mainTextureOffset.y);
+            faceRight = false;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            anim.SetBool("Run", true);
+            bgMesh.material.mainTextureOffset = new Vector2(bgMesh.material.mainTextureOffset.x + Time.fixedDeltaTime, bgMesh.material.mainTextureOffset.y);
+            faceRight = true;
         }
         else
         {
             anim.SetBool("Run", false);
         }
+
+
     }
 
 
