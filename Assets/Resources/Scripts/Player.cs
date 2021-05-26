@@ -39,11 +39,19 @@ public class Player : SingletonMonobehaviour<Player>
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             anim.SetBool("Jump", true);
+
         }
-        else
+
+        if (isGrounded)
         {
             anim.SetBool("Jump", false);
         }
+        else
+        {
+            anim.SetBool("Jump", true);
+        }
+
+
 
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -69,6 +77,7 @@ public class Player : SingletonMonobehaviour<Player>
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapPoint(groundCheck.position, whatIsGround);
+
         Move();
     }
 
