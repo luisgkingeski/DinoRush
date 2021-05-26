@@ -172,6 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3218956805703385740}
   - component: {fileID: 7335080860215970147}
+  - component: {fileID: -1491830732947826834}
   m_Layer: 8
   m_Name: SmallPlat
   m_TagString: Untagged
@@ -187,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3218956805703385741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 3218956803753883767}
@@ -222,6 +223,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.7649145, y: 1.1101956}
   m_EdgeRadius: 0
+--- !u!114 &-1491830732947826834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218956805703385741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395c9935f4a58fb4793f6f0c78af4dca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 7
 --- !u!1 &3218956805742729907
 GameObject:
   m_ObjectHideFlags: 0

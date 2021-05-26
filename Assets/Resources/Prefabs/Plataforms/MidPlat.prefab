@@ -253,6 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6594785910546736212}
   - component: {fileID: 2460907805513539082}
+  - component: {fileID: 3201906817346508983}
   m_Layer: 8
   m_Name: MidPlat
   m_TagString: Untagged
@@ -268,7 +269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6594785910546736213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 6594785910208257711}
@@ -306,6 +307,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.5464354, y: 1.1209853}
   m_EdgeRadius: 0
+--- !u!114 &3201906817346508983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6594785910546736213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395c9935f4a58fb4793f6f0c78af4dca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 15
 --- !u!1 &6594785911038681117
 GameObject:
   m_ObjectHideFlags: 0
