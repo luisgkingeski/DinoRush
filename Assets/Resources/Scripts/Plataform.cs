@@ -1,23 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Plataform : MonoBehaviour
 {
     #region References
+
+    public GameObject egg;
+
     #endregion
 
     #region Variables
 
     public int size;
     public bool move;
-    public Direction direction;
-
-
+    private float randSpeed;
     public int limit = 5;//max movement
     public float xCenter = 0f;
     public float yCenter = 0f;
-
 
     #endregion
 
@@ -27,20 +25,20 @@ public class Plataform : MonoBehaviour
     {
         xCenter = transform.position.x;
         yCenter = transform.position.y;
+        randSpeed = Random.Range(0.5f, 3f);
+
+        if (Random.Range(0, 2) == 0)
+        {
+            Instantiate(egg, new Vector3(transform.position.x, transform.position.y + 4, transform.position.z), Quaternion.identity);
+        }
+
     }
 
     private void Update()
     {
         if (move)
         {
-            if(direction == Direction.Vertical)
-            {
-                transform.position = new Vector3(transform.position.x, yCenter + Mathf.PingPong(Time.time * 2, limit) - limit / 2f, transform.position.z);
-            }
-            else
-            {
-                transform.position = new Vector3(xCenter + Mathf.PingPong(Time.time * 2, limit) - limit / 2f, transform.position.y , transform.position.z);
-            }            
+            transform.position = new Vector3(transform.position.x, yCenter + Mathf.PingPong(Time.time * randSpeed, limit) - limit / 2f, transform.position.z);
         }
     }
 
@@ -49,19 +47,7 @@ public class Plataform : MonoBehaviour
     #region Private Methods
     #endregion
 
-    #region Public Methods
-    #endregion
-
-    #region Enum
-
-    public enum Direction
-    {
-        Vertical,
-        Horizontal
-        
-    };
 
 
-    #endregion
 
 }

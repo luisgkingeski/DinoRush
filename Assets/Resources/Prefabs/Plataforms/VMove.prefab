@@ -173,8 +173,9 @@ GameObject:
   - component: {fileID: 3218956805703385740}
   - component: {fileID: 7335080860215970147}
   - component: {fileID: -1491830732947826834}
+  - component: {fileID: -3124987765778943777}
   m_Layer: 8
-  m_Name: SmallPlatMove
+  m_Name: VMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,13 +236,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c9935f4a58fb4793f6f0c78af4dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  egg: {fileID: 2616222898051306941, guid: bc7e8a3efa76ee941b801c438ecf5539, type: 3}
   size: 7
   move: 1
-  direction: 0
   limit: 10
   xCenter: 0
   yCenter: 0
-  isFinal: 0
+--- !u!50 &-3124987765778943777
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218956805703385741}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &3218956805742729907
 GameObject:
   m_ObjectHideFlags: 0

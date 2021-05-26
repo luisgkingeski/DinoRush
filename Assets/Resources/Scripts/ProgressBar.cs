@@ -39,7 +39,7 @@ public class ProgressBar : SingletonMonobehaviour<ProgressBar>
     public void SetFinal(GameObject finalObj)
     {
         final = finalObj;
-        distance = Vector3.Distance(player.transform.position, final.transform.position);
+        distance = Vector3.Distance(player.transform.position, new Vector3(final.transform.position.x - (final.GetComponent<Plataform>().size/2), final.transform.position.y, final.transform.position.z));
     }
 
     #endregion

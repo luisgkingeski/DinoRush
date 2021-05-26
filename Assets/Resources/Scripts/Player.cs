@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : SingletonMonobehaviour<Player>
 {
     #region References
 
@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     private Animator anim;
     public MeshRenderer bgMesh;
+    private Score score;
     #endregion
 
     #region Variables
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         bgMesh.material.mainTextureOffset = Vector2.zero;
+        score = Score.Instance;
     }
 
     void Update()
@@ -69,6 +71,16 @@ public class Player : MonoBehaviour
         isGrounded = Physics2D.OverlapPoint(groundCheck.position, whatIsGround);
         Move();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Egg"))
+        {
+            score.ScoreUp();
+            Destroy(collision.gameObject);
+        }
+    }
+
 
     #endregion
 
