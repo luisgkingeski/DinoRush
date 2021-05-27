@@ -6,6 +6,9 @@ public class Meteor : MonoBehaviour
     #region References
 
     private Transform player;
+    public GameObject explosion;
+    private GameObject currentExplosion;
+    public Transform explosionPosition;
 
     #endregion
 
@@ -38,6 +41,8 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        currentExplosion = Instantiate(explosion, explosionPosition.position, Quaternion.identity, null);
+        Destroy(currentExplosion, 1);
         Destroy(gameObject);
     }
 

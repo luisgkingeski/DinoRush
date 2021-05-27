@@ -16,7 +16,6 @@ public class Plataform : MonoBehaviour
     public int limit = 5;//max movement
     public float xCenter = 0f;
     public float yCenter = 0f;
-
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -27,7 +26,7 @@ public class Plataform : MonoBehaviour
         yCenter = transform.position.y;
         randSpeed = Random.Range(0.5f, 3f);
 
-        if (Random.Range(0, 2) == 0)
+        if (Random.Range(1, 11) > 4 && gameObject.tag != "Final")
         {
             Instantiate(egg, new Vector3(transform.position.x, transform.position.y + 4, transform.position.z), Quaternion.identity);
         }

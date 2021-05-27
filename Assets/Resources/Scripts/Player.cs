@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : SingletonMonobehaviour<Player>
 {
@@ -87,6 +88,15 @@ public class Player : SingletonMonobehaviour<Player>
         {
             score.ScoreUp();
             Destroy(collision.gameObject);
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Final"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

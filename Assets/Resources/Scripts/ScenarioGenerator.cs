@@ -4,6 +4,9 @@ using UnityEngine;
 public class ScenarioGenerator : MonoBehaviour
 {
     #region References
+
+    public GameObject finalNPC;
+
     #endregion
 
     #region Variables
@@ -34,7 +37,7 @@ public class ScenarioGenerator : MonoBehaviour
 
     private void GenerateScenario()
     {
-        
+
         for (int i = 0; i < plataforms.Length; i++)
         {
             plataformsList.Add(plataforms[i] as GameObject);
@@ -46,11 +49,12 @@ public class ScenarioGenerator : MonoBehaviour
             int plataformSize = plataformsList[rand].GetComponent<Plataform>().size;
             currentPlataform = Instantiate(plataformsList[rand], new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z), Quaternion.identity, transform);
             xOffset += spaceBetweenPlataforms + plataformSize;
-            usedSize += xOffset;            
+            usedSize += xOffset;
         }
         currentPlataform.tag = "Final";
+        Vector3 npcSpawnPos = new Vector3(currentPlataform.transform.position.x, currentPlataform.transform.position.y + 5, 10);
+        Instantiate(finalNPC, npcSpawnPos, Quaternion.identity);
         ProgressBar.Instance.SetFinal(currentPlataform); // set the final plataform to progress bar
-
     }
 
     #endregion
