@@ -10,6 +10,7 @@ public class Player : SingletonMonobehaviour<Player>
     private Animator anim;
     public MeshRenderer bgMesh;
     private Score score;
+
     #endregion
 
     #region Variables
@@ -35,51 +36,23 @@ public class Player : SingletonMonobehaviour<Player>
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (!dead)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
-            anim.SetBool("Jump", true);
-
+            Jump();
+            CheckSide();
         }
-
-        if (isGrounded)
-        {
-            anim.SetBool("Jump", false);
-        }
-        else
-        {
-            anim.SetBool("Jump", true);
-        }
-
-
-
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            dead = true;
-            anim.SetBool("Dead", true);
-        }
-
-
-        if (faceRight)
-        {
-            transform.localScale = new Vector3(0.5f, 0.5f, 1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-0.5f, 0.5f, 1);
-        }
-
         bgMesh.transform.position = new Vector3(transform.position.x, bgMesh.transform.position.y, bgMesh.transform.position.z);
 
     }
 
     void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapPoint(groundCheck.position, whatIsGround);
+        if (!dead)
+        {
+            isGrounded = Physics2D.OverlapPoint(groundCheck.position, whatIsGround);
+            Move();
+        }
 
-        Move();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -98,6 +71,21 @@ public class Player : SingletonMonobehaviour<Player>
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Meteor"))
+        {
+            dead = true;
+            anim.SetBool("Dead", true);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("GameOver"))
+        {
+            dead = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        
+
     }
 
 
@@ -131,9 +119,37 @@ public class Player : SingletonMonobehaviour<Player>
 
     }
 
+    private void Jump()
+    {
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
+            anim.SetBool("Jump", true);
 
+        }
 
+        if (isGrounded)
+        {
+            anim.SetBool("Jump", false);
+        }
+        else
+        {
+            anim.SetBool("Jump", true);
+        }
+    }
 
+    private void CheckSide()
+    {
+        if (faceRight)
+        {
+            transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+        }
+    }
 
     #endregion
 

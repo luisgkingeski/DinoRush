@@ -5,7 +5,7 @@ public class Plataform : MonoBehaviour
     #region References
 
     public GameObject egg;
-
+    private Transform eggsParent;
     #endregion
 
     #region Variables
@@ -22,13 +22,14 @@ public class Plataform : MonoBehaviour
 
     private void Start()
     {
+        eggsParent = GameObject.Find("EggsParent").transform;
         xCenter = transform.position.x;
         yCenter = transform.position.y;
         randSpeed = Random.Range(0.5f, 3f);
 
         if (Random.Range(1, 11) > 4 && gameObject.tag != "Final")
         {
-            Instantiate(egg, new Vector3(transform.position.x, transform.position.y + 4, transform.position.z), Quaternion.identity);
+            Instantiate(egg, new Vector3(transform.position.x, transform.position.y + 4, transform.position.z), Quaternion.identity, eggsParent);
         }
 
     }

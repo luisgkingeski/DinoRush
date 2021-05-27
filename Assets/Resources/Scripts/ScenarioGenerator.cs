@@ -6,6 +6,7 @@ public class ScenarioGenerator : MonoBehaviour
     #region References
 
     public GameObject finalNPC;
+    public BoxCollider2D fallGameOver;
 
     #endregion
 
@@ -17,7 +18,9 @@ public class ScenarioGenerator : MonoBehaviour
     private int usedSize = 0;
     private Object[] plataforms;
     private List<GameObject> plataformsList;
+    private List<GameObject> finalplataformChilds;
     private GameObject currentPlataform;
+    private int midObjIndex;
 
     #endregion
 
@@ -27,7 +30,9 @@ public class ScenarioGenerator : MonoBehaviour
     {
         plataforms = Resources.LoadAll("Prefabs/Plataforms", typeof(GameObject));
         plataformsList = new List<GameObject>();
+        finalplataformChilds = new List<GameObject>();
         GenerateScenario();
+        
     }
 
 
@@ -52,8 +57,17 @@ public class ScenarioGenerator : MonoBehaviour
             usedSize += xOffset;
         }
         currentPlataform.tag = "Final";
-        Vector3 npcSpawnPos = new Vector3(currentPlataform.transform.position.x, currentPlataform.transform.position.y + 5, 10);
+
+        foreach (Transform child in currentPlataform.transform)
+        {
+            finalplataformChilds.Add(child.gameObject);
+        }
+
+        midObjIndex = (finalplataformChilds.Count) / 2;
+
+        Vector3 npcSpawnPos = new Vector3(finalplataformChilds[midObjIndex].transform.position.x, currentPlataform.transform.position.y + 5, 10);
         Instantiate(finalNPC, npcSpawnPos, Quaternion.identity);
+        fallGameOver.size = new Vector2(levelSize, 1);
         ProgressBar.Instance.SetFinal(currentPlataform); // set the final plataform to progress bar
     }
 
