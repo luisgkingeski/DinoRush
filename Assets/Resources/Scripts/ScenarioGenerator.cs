@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ScenarioGenerator : MonoBehaviour
+public class ScenarioGenerator : SingletonMonobehaviour<ScenarioGenerator>
 {
     #region References
 

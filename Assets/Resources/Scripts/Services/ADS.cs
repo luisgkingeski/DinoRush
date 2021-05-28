@@ -7,15 +7,22 @@ public class ADS : SingletonMonobehaviour<ADS>
     string mySurfacingId = "rewardedVideo";
     bool testMode = true;
 
-    // Initialize the Ads listener and service:
     void Start()
     {
         Advertisement.Initialize(gameId, testMode);
     }
 
+    void Update()
+    {
+        if (PlayerPrefs.GetInt("Deaths") >= 3)
+        {
+            PlayerPrefs.SetInt("Deaths", 0);
+            ShowRewardedVideo();
+        }
+    }
+
     public void ShowRewardedVideo()
     {
-        // Check if UnityAds ready before calling Show method:
         if (Advertisement.IsReady(mySurfacingId))
         {
             Advertisement.Show(mySurfacingId);
@@ -24,7 +31,8 @@ public class ADS : SingletonMonobehaviour<ADS>
         {
             Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
         }
+        AnalyticsManager.Instance.ShowAd();
     }
 
-   
+
 }

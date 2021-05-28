@@ -10,6 +10,7 @@ public class Player : SingletonMonobehaviour<Player>
     private Animator anim;
     public MeshRenderer bgMesh;
     private Score score;
+    private AnalyticsManager analyticsManager;
 
     #endregion
 
@@ -21,6 +22,10 @@ public class Player : SingletonMonobehaviour<Player>
     public float speed;
     private bool dead = false;
     private bool faceRight = true;
+    private int deathByMeteor;
+    private int deathByFall;
+
+    private float timer = 0;
 
     #endregion
 
@@ -32,6 +37,8 @@ public class Player : SingletonMonobehaviour<Player>
         anim = GetComponent<Animator>();
         bgMesh.material.mainTextureOffset = Vector2.zero;
         score = Score.Instance;
+        analyticsManager = AnalyticsManager.Instance;
+        analyticsManager.LevelStart();
     }
 
     void Update()
@@ -47,8 +54,11 @@ public class Player : SingletonMonobehaviour<Player>
 
     void FixedUpdate()
     {
+        
+
         if (!dead)
         {
+            timer += Time.fixedDeltaTime;
             isGrounded = Physics2D.OverlapPoint(groundCheck.position, whatIsGround);
             Move();
         }
@@ -69,26 +79,31 @@ public class Player : SingletonMonobehaviour<Player>
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Final"))
         {
+            analyticsManager.LevelEnd(timer);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Meteor"))
         {
+            PlayerPrefs.SetInt("Deaths", PlayerPrefs.GetInt("Deaths") + 1);
             dead = true;
             anim.SetBool("Dead", true);
+
+            PlayerPrefs.SetInt("DeathByMeteor", PlayerPrefs.GetInt("DeathByMeteor") + 1);
+            analyticsManager.DeathByMeteor(PlayerPrefs.GetInt("DeathByMeteor"), score.score);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("GameOver"))
         {
+            PlayerPrefs.SetInt("Deaths", PlayerPrefs.GetInt("Deaths") + 1);
             dead = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        
-
+            PlayerPrefs.SetInt("DeathByFall", PlayerPrefs.GetInt("DeathByFall") + 1);
+            analyticsManager.DeathByFall(PlayerPrefs.GetInt("DeathByFall"), score.score);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);            
+        }     
     }
-
-
     #endregion
 
     #region Private Methods

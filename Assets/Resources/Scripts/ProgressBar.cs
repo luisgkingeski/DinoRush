@@ -16,7 +16,7 @@ public class ProgressBar : SingletonMonobehaviour<ProgressBar>
 
     #region Variables
 
-    private float distancePercent;
+    public float distancePercent;
     private float distance;
 
     #endregion
