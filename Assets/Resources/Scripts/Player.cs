@@ -22,11 +22,12 @@ public class Player : SingletonMonobehaviour<Player>
     public float speed;
     private bool dead = false;
     private bool faceRight = true;
-    private int deathByMeteor;
-    private int deathByFall;
 
     private float timer = 0;
 
+    private bool jumpBtnPressed = false;
+
+    private int direction = 0;
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -110,17 +111,17 @@ public class Player : SingletonMonobehaviour<Player>
 
     private void Move()
     {
-        float x = Input.GetAxis("Horizontal");
-        Vector3 move = new Vector3(x * speed, rb.velocity.y, 0f);
+  
+        Vector3 move = new Vector3(direction * speed, rb.velocity.y, 0f);
         rb.velocity = move;
 
-        if (Input.GetKey(KeyCode.A))
+        if (direction == -1)
         {
             anim.SetBool("Run", true);
             bgMesh.material.mainTextureOffset = new Vector2(bgMesh.material.mainTextureOffset.x - Time.fixedDeltaTime, bgMesh.material.mainTextureOffset.y);
             faceRight = false;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (direction == 1)
         {
             anim.SetBool("Run", true);
             bgMesh.material.mainTextureOffset = new Vector2(bgMesh.material.mainTextureOffset.x + Time.fixedDeltaTime, bgMesh.material.mainTextureOffset.y);
@@ -136,8 +137,9 @@ public class Player : SingletonMonobehaviour<Player>
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (jumpBtnPressed && isGrounded)
         {
+            jumpBtnPressed = false;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             anim.SetBool("Jump", true);
@@ -169,6 +171,29 @@ public class Player : SingletonMonobehaviour<Player>
     #endregion
 
     #region Public Methods
+
+    public void JumpBtnDown()
+    {
+        jumpBtnPressed = true;
+    }
+
+    public void LeftBtnPressed()
+    {
+        direction = -1;
+    }
+
+    public void RightBtnPressed()
+    {
+        direction = 1;
+    }
+
+    public void BtnDirectionUp()
+    {
+        direction = 0;
+    }
+
+
+
     #endregion
 }
 
