@@ -13,6 +13,7 @@ public class Score : SingletonMonobehaviour<Score>
     #region Variables
 
     public int score = 0;
+    public string scoreString;
     public int totalScore = 0;
     public GameObject[] eggs;
 
@@ -35,7 +36,8 @@ public class Score : SingletonMonobehaviour<Score>
     public void ScoreUp()
     {
         score++;
-        scoreTxt.text = "Score: " + score.ToString() + "/" + eggs.Length; ;
+        scoreString = score.ToString() + "/" + eggs.Length;
+        scoreTxt.text = "Score: " + scoreString;
     }
 
     #endregion

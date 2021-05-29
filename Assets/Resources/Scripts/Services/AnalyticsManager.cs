@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.Analytics;
+using UnityEngine;
 
 public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
 {
@@ -39,14 +40,15 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
         print("LevelStart" + analyticsResult);
     }
 
-    public void LevelEnd(float time)
+    public void LevelEnd(float time, string score)
     {
         AnalyticsResult analyticsResult = Analytics.CustomEvent(
           "LevelEnd",
           new Dictionary<string, object>
           {
                 {"Size", ScenarioGenerator.Instance.levelSize},
-              {"Time", time}
+              {"Time", time},
+               {"Score", score}
           }
           );
 
@@ -55,7 +57,7 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
 
 
 
-    public void DeathByMeteor(int count, int score)
+    public void DeathByMeteor(int count, string score)
     {
         AnalyticsResult analyticsResult = Analytics.CustomEvent(
            "DeathByMeteor",
@@ -69,7 +71,7 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
         print("DeathByMeteor" + analyticsResult);
     }
 
-    public void DeathByFall(int count, int score)
+    public void DeathByFall(int count, string score)
     {
         AnalyticsResult analyticsResult = Analytics.CustomEvent(
            "DeathByFall",
@@ -85,11 +87,12 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
 
     public void ShowAd()
     {
+        PlayerPrefs.SetInt("AdsShown", PlayerPrefs.GetInt("AdsShown") + 1);
         AnalyticsResult analyticsResult = Analytics.CustomEvent(
            "ShowAd",
            new Dictionary<string, object>
            {
-                {"AdShown", true}
+                {"AdShown", PlayerPrefs.GetInt("AdsShown")}
            }
            );
         print("ShowAd" + analyticsResult);

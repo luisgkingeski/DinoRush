@@ -54,7 +54,7 @@ public class Player : SingletonMonobehaviour<Player>
 
     void FixedUpdate()
     {
-        
+
 
         if (!dead)
         {
@@ -79,7 +79,7 @@ public class Player : SingletonMonobehaviour<Player>
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Final"))
         {
-            analyticsManager.LevelEnd(timer);
+            analyticsManager.LevelEnd(timer, score.scoreString);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -90,9 +90,9 @@ public class Player : SingletonMonobehaviour<Player>
             anim.SetBool("Dead", true);
 
             PlayerPrefs.SetInt("DeathByMeteor", PlayerPrefs.GetInt("DeathByMeteor") + 1);
-            analyticsManager.DeathByMeteor(PlayerPrefs.GetInt("DeathByMeteor"), score.score);
+            analyticsManager.DeathByMeteor(PlayerPrefs.GetInt("DeathByMeteor"), score.scoreString);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            
+
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("GameOver"))
@@ -100,9 +100,9 @@ public class Player : SingletonMonobehaviour<Player>
             PlayerPrefs.SetInt("Deaths", PlayerPrefs.GetInt("Deaths") + 1);
             dead = true;
             PlayerPrefs.SetInt("DeathByFall", PlayerPrefs.GetInt("DeathByFall") + 1);
-            analyticsManager.DeathByFall(PlayerPrefs.GetInt("DeathByFall"), score.score);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);            
-        }     
+            analyticsManager.DeathByFall(PlayerPrefs.GetInt("DeathByFall"), score.scoreString);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
     #endregion
 
