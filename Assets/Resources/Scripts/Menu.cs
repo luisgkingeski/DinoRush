@@ -1,13 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
 
     public GameObject optionsObj;
     public GameObject menuObj;
+    public Slider volumeSlider, sizeSlider;
+    public Text sizeLabel;
+
+   
+    void Start()
+    {
+        sizeLabel.text = PlayerPrefs.GetInt("LevelSize").ToString();
+        ClearPlayerPrefs();
+    }
+
+    private void ClearPlayerPrefs()
+    {
+        PlayerPrefs.SetInt("Deaths", 0);
+        PlayerPrefs.SetInt("DeathByMeteor", 0);
+        PlayerPrefs.SetInt("DeathByFall", 0);
+    }
+
+    public void UpdateVolume()
+    {
+        PlayerPrefs.SetInt("Volume", (int)volumeSlider.value);
+    }
+
+    public void UpdateSize()
+    {
+        PlayerPrefs.SetInt("LevelSize", (int)sizeSlider.value);
+        sizeLabel.text = PlayerPrefs.GetInt("LevelSize").ToString();
+    }
 
     public void BtnBack()
     {

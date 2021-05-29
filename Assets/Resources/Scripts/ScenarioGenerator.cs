@@ -28,6 +28,7 @@ public class ScenarioGenerator : SingletonMonobehaviour<ScenarioGenerator>
 
     private void Start()
     {
+        levelSize = PlayerPrefs.GetInt("LevelSize");
         plataforms = Resources.LoadAll("Prefabs/Plataforms", typeof(GameObject));
         plataformsList = new List<GameObject>();
         finalplataformChilds = new List<GameObject>();
