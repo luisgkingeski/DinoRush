@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +13,8 @@ public class Score : SingletonMonobehaviour<Score>
     #region Variables
 
     public int score = 0;
+    public int totalScore = 0;
+    public GameObject[] eggs;
 
     #endregion
 
@@ -21,7 +22,7 @@ public class Score : SingletonMonobehaviour<Score>
 
     void Start()
     {
-        scoreTxt.text = "Score: 0 ";
+        StartCoroutine(LateStart(0.1f));        
     }
 
     #endregion
@@ -34,8 +35,24 @@ public class Score : SingletonMonobehaviour<Score>
     public void ScoreUp()
     {
         score++;
-        scoreTxt.text = "Score: " + score.ToString();
+        scoreTxt.text = "Score: " + score.ToString() + "/" + eggs.Length; ;
     }
 
     #endregion
+
+    #region Coroutines
+
+    IEnumerator LateStart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        eggs = GameObject.FindGameObjectsWithTag("Egg");
+        scoreTxt.text = "Score: 0/" + eggs.Length;
+    }
+
+    #endregion
+
+
+
+
+
 }
