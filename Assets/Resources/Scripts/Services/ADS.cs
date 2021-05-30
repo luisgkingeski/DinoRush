@@ -17,6 +17,7 @@ public class ADS : SingletonMonobehaviour<ADS>
         if (PlayerPrefs.GetInt("Deaths") >= 3)
         {
             PlayerPrefs.SetInt("Deaths", 0);
+            Music.Instance.StopMusic();            
             ShowRewardedVideo();
         }
     }
@@ -25,7 +26,8 @@ public class ADS : SingletonMonobehaviour<ADS>
     {
         if (Advertisement.IsReady(mySurfacingId))
         {
-            Advertisement.Show(mySurfacingId);
+            ShowOptions options = new ShowOptions { resultCallback = HandleShowResult };
+            Advertisement.Show(mySurfacingId, options);
         }
         else
         {
@@ -33,6 +35,24 @@ public class ADS : SingletonMonobehaviour<ADS>
         }
         AnalyticsManager.Instance.ShowAd();
     }
+
+    private void HandleShowResult(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Finished:
+                Debug.Log("The ad was successfully shown.");
+                Music.Instance.PlayMusic();
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("The ad was skipped before reaching the end.");
+                break;
+            case ShowResult.Failed:
+                Debug.LogError("The ad failed to be shown.");
+                break;
+        }
+    }
+
 
 
 }

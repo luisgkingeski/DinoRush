@@ -14,6 +14,8 @@ public class Menu : MonoBehaviour
     void Start()
     {
         sizeLabel.text = PlayerPrefs.GetInt("LevelSize").ToString();
+        volumeSlider.value = PlayerPrefs.GetFloat("Volume");
+        sizeLabel.text = PlayerPrefs.GetInt("LevelSize").ToString();
         ClearPlayerPrefs();
     }
 
@@ -26,7 +28,7 @@ public class Menu : MonoBehaviour
 
     public void UpdateVolume()
     {
-        PlayerPrefs.SetInt("Volume", (int)volumeSlider.value);
+        PlayerPrefs.SetFloat("Volume", volumeSlider.value);
     }
 
     public void UpdateSize()

@@ -14,9 +14,9 @@ public class SoundController : SingletonMonobehaviour<SoundController>
 
     void SetVolume()
     {
-        jump.volume = PlayerPrefs.GetInt("Volume");
-        run.volume = PlayerPrefs.GetInt("Volume");
-        death.volume = PlayerPrefs.GetInt("Volume");
+        jump.volume = PlayerPrefs.GetFloat("Volume");
+        run.volume = PlayerPrefs.GetFloat("Volume");
+        death.volume = PlayerPrefs.GetFloat("Volume");
     }
 
     public void PlayJump()

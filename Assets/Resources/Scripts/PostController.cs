@@ -9,13 +9,14 @@ public class PostController : MonoBehaviour
     public Text status;
     public Text time;
     public Text score;
-
+    private GameObject music;
 
     void Start()
     {
         status.text = "Level " + PlayerPrefs.GetString("Status");
         time.text = "Time: " + PlayerPrefs.GetFloat("Time");
         score.text = "Score: " + PlayerPrefs.GetString("LastScore");
+        music = GameObject.Find("Music");
     }
 
     public void BtnRetry()
@@ -26,6 +27,10 @@ public class PostController : MonoBehaviour
     public void BtnMenu()
     {
         SceneManager.LoadScene("Menu");
+        if(!ReferenceEquals(music, null))
+        {
+            Destroy(music);
+        }
     }
 
     public void BtnExit()
