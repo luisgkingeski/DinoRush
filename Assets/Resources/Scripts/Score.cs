@@ -23,7 +23,8 @@ public class Score : SingletonMonobehaviour<Score>
 
     void Start()
     {
-        StartCoroutine(LateStart(0.1f));        
+        StartCoroutine(LateStart(0.1f));
+       
     }
 
     #endregion
@@ -48,7 +49,8 @@ public class Score : SingletonMonobehaviour<Score>
     {
         yield return new WaitForSeconds(waitTime);
         eggs = GameObject.FindGameObjectsWithTag("Egg");
-        scoreTxt.text = "Score: 0/" + eggs.Length;
+        scoreString = score.ToString() + "/" + eggs.Length;
+        scoreTxt.text = "Score: " + scoreString;
     }
 
     #endregion

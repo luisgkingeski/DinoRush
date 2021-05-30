@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : SingletonMonobehaviour<Player>
@@ -81,7 +82,11 @@ public class Player : SingletonMonobehaviour<Player>
         if (collision.gameObject.layer == LayerMask.NameToLayer("Final"))
         {
             analyticsManager.LevelEnd(timer, score.scoreString);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+           
+            PlayerPrefs.SetString("LastScore", score.scoreString);
+            PlayerPrefs.SetString("Status", "Completed");
+            PlayerPrefs.SetFloat("Time", timer);
+            SceneManager.LoadScene("Post");
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Meteor"))
@@ -90,11 +95,12 @@ public class Player : SingletonMonobehaviour<Player>
             PlayerPrefs.SetInt("Deaths", PlayerPrefs.GetInt("Deaths") + 1);
             dead = true;
             anim.SetBool("Dead", true);
-
             PlayerPrefs.SetInt("DeathByMeteor", PlayerPrefs.GetInt("DeathByMeteor") + 1);
             analyticsManager.DeathByMeteor(PlayerPrefs.GetInt("DeathByMeteor"), score.scoreString);
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
+            PlayerPrefs.SetString("LastScore", score.scoreString);
+            PlayerPrefs.SetString("Status", "Fail");
+            PlayerPrefs.SetFloat("Time", timer);
+            StartCoroutine(StartPostGame());
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("GameOver"))
@@ -104,7 +110,10 @@ public class Player : SingletonMonobehaviour<Player>
             dead = true;
             PlayerPrefs.SetInt("DeathByFall", PlayerPrefs.GetInt("DeathByFall") + 1);
             analyticsManager.DeathByFall(PlayerPrefs.GetInt("DeathByFall"), score.scoreString);
-            //  SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            PlayerPrefs.SetString("LastScore", score.scoreString);
+            PlayerPrefs.SetString("Status", "Fail");
+            PlayerPrefs.SetFloat("Time", timer);
+            StartCoroutine(StartPostGame());
         }
 
         if (collision.gameObject.CompareTag("Bounce"))
@@ -206,6 +215,17 @@ public class Player : SingletonMonobehaviour<Player>
 
 
     #endregion
+
+    #region Coroutines
+
+    IEnumerator StartPostGame()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Post");
+    }
+
+    #endregion
+
 }
 
 

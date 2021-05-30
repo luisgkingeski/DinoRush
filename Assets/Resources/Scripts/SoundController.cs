@@ -7,6 +7,17 @@ public class SoundController : SingletonMonobehaviour<SoundController>
     public AudioSource death;
 
 
+    void Start()
+    {
+        SetVolume();
+    }
+
+    void SetVolume()
+    {
+        jump.volume = PlayerPrefs.GetInt("Volume");
+        run.volume = PlayerPrefs.GetInt("Volume");
+        death.volume = PlayerPrefs.GetInt("Volume");
+    }
 
     public void PlayJump()
     {
