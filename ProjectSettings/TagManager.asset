@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Final
   - Egg
+  - Bounce
   layers:
   - Default
   - TransparentFX

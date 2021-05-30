@@ -86,24 +86,32 @@ public class Player : SingletonMonobehaviour<Player>
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Meteor"))
         {
+            SoundController.Instance.PlayDeath();
             PlayerPrefs.SetInt("Deaths", PlayerPrefs.GetInt("Deaths") + 1);
             dead = true;
             anim.SetBool("Dead", true);
 
             PlayerPrefs.SetInt("DeathByMeteor", PlayerPrefs.GetInt("DeathByMeteor") + 1);
             analyticsManager.DeathByMeteor(PlayerPrefs.GetInt("DeathByMeteor"), score.scoreString);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("GameOver"))
         {
+            SoundController.Instance.PlayDeath();
             PlayerPrefs.SetInt("Deaths", PlayerPrefs.GetInt("Deaths") + 1);
             dead = true;
             PlayerPrefs.SetInt("DeathByFall", PlayerPrefs.GetInt("DeathByFall") + 1);
             analyticsManager.DeathByFall(PlayerPrefs.GetInt("DeathByFall"), score.scoreString);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //  SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        if (collision.gameObject.CompareTag("Bounce"))
+        {
+            SoundController.Instance.PlayJump();
+        }
+
     }
     #endregion
 
@@ -111,7 +119,7 @@ public class Player : SingletonMonobehaviour<Player>
 
     private void Move()
     {
-  
+
         Vector3 move = new Vector3(direction * speed, rb.velocity.y, 0f);
         rb.velocity = move;
 
@@ -143,6 +151,7 @@ public class Player : SingletonMonobehaviour<Player>
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             anim.SetBool("Jump", true);
+            SoundController.Instance.PlayJump();
 
         }
 
@@ -180,18 +189,20 @@ public class Player : SingletonMonobehaviour<Player>
     public void LeftBtnPressed()
     {
         direction = -1;
+        SoundController.Instance.PlayRun();
     }
 
     public void RightBtnPressed()
     {
         direction = 1;
+        SoundController.Instance.PlayRun();
     }
 
     public void BtnDirectionUp()
     {
         direction = 0;
+        SoundController.Instance.StopRun();
     }
-
 
 
     #endregion
