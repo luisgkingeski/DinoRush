@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
 
 public class ADS : SingletonMonobehaviour<ADS>
 {
@@ -17,15 +18,22 @@ public class ADS : SingletonMonobehaviour<ADS>
         if (PlayerPrefs.GetInt("Deaths") >= 3)
         {
             PlayerPrefs.SetInt("Deaths", 0);
-            Music.Instance.StopMusic();            
             ShowRewardedVideo();
         }
     }
+
+    private void StopGame()
+    {
+        Music.Instance.StopMusic();
+        SoundController.Instance.StopAll();
+    }
+
 
     public void ShowRewardedVideo()
     {
         if (Advertisement.IsReady(mySurfacingId))
         {
+            StopGame();
             ShowOptions options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show(mySurfacingId, options);
         }
@@ -42,7 +50,10 @@ public class ADS : SingletonMonobehaviour<ADS>
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                Music.Instance.PlayMusic();
+
+                Music.Instance.PlayMusic();                
+                SceneManager.LoadScene("Post");
+
                 break;
             case ShowResult.Skipped:
                 Debug.Log("The ad was skipped before reaching the end.");

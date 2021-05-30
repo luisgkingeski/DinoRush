@@ -32,7 +32,7 @@ public class SoundController : SingletonMonobehaviour<SoundController>
 
     public void PlayRun()
     {
-        run.Play();
+            run.Play();        
     }
 
 
@@ -42,4 +42,10 @@ public class SoundController : SingletonMonobehaviour<SoundController>
     }
 
 
+    public void StopAll()
+    {
+        run.Stop();
+        jump.Stop();
+        death.Stop();
+    }
 }

@@ -29,6 +29,7 @@ public class Player : SingletonMonobehaviour<Player>
     private bool jumpBtnPressed = false;
 
     private int direction = 0;
+
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -167,10 +168,15 @@ public class Player : SingletonMonobehaviour<Player>
         if (isGrounded)
         {
             anim.SetBool("Jump", false);
+            if(direction != 0 && !SoundController.Instance.run.isPlaying)
+            {
+                SoundController.Instance.PlayRun();
+            }
         }
         else
         {
             anim.SetBool("Jump", true);
+            SoundController.Instance.StopRun();
         }
     }
 
@@ -193,6 +199,7 @@ public class Player : SingletonMonobehaviour<Player>
     public void JumpBtnDown()
     {
         jumpBtnPressed = true;
+        SoundController.Instance.StopRun();
     }
 
     public void LeftBtnPressed()
