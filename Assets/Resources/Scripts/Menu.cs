@@ -10,24 +10,13 @@ public class Menu : MonoBehaviour
     public Slider volumeSlider, sizeSlider;
     public Text sizeLabel;
 
-   
+
     void Start()
     {
-        sizeLabel.text = PlayerPrefs.GetInt("LevelSize").ToString();
         volumeSlider.value = PlayerPrefs.GetFloat("Volume");
+        sizeSlider.value = PlayerPrefs.GetInt("LevelSize");
         sizeLabel.text = PlayerPrefs.GetInt("LevelSize").ToString();
         ClearPlayerPrefs();
-
-        if (sizeSlider.value == 0)
-        {
-            sizeSlider.value = 250;
-            UpdateSize();
-        }
-
-        UpdateVolume();
-        UpdateSize();
-
-
     }
 
     private void ClearPlayerPrefs()
@@ -60,8 +49,14 @@ public class Menu : MonoBehaviour
         optionsObj.SetActive(true);
     }
 
-    public void PlayBtn()
+    public void BtnPlay()
     {
         SceneManager.LoadScene(1);
     }
+
+    public void BtnExit()
+    {
+        Application.Quit();
+    }
+
 }

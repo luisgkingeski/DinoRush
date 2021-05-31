@@ -50,13 +50,14 @@ public class ADS : SingletonMonobehaviour<ADS>
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-
                 Music.Instance.PlayMusic();                
                 SceneManager.LoadScene("Post");
 
                 break;
             case ShowResult.Skipped:
                 Debug.Log("The ad was skipped before reaching the end.");
+                Music.Instance.PlayMusic();
+                SceneManager.LoadScene("Post");
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");
