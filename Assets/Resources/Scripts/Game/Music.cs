@@ -2,18 +2,28 @@
 
 public class Music : SingletonMonobehaviour<Music>
 {
+    #region Variables
+
     private AudioSource audioSource;
+
+    #endregion
+
+    #region MonoBehaviour Callbacks
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         audioSource.volume = PlayerPrefs.GetFloat("Volume");
     }
+
+    #endregion
+
+    #region Public Methods
 
     public void PlayMusic()
     {
@@ -25,4 +35,5 @@ public class Music : SingletonMonobehaviour<Music>
         audioSource.Stop();
     }
 
+    #endregion
 }

@@ -1,15 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PostController : MonoBehaviour
 {
+    #region References
+
     public Text status;
     public Text time;
     public Text score;
     private GameObject music;
+
+    #endregion
+
+
+    #region MonoBehaviour Callbacks
 
     void Start()
     {
@@ -19,6 +24,10 @@ public class PostController : MonoBehaviour
         music = GameObject.Find("Music");
     }
 
+    #endregion
+
+    #region Public Methods
+
     public void BtnRetry()
     {
         SceneManager.LoadScene("Game");
@@ -27,7 +36,7 @@ public class PostController : MonoBehaviour
     public void BtnMenu()
     {
         SceneManager.LoadScene("Menu");
-        if(!ReferenceEquals(music, null))
+        if (!ReferenceEquals(music, null))
         {
             Destroy(music);
         }
@@ -38,6 +47,5 @@ public class PostController : MonoBehaviour
         Application.Quit();
     }
 
-   
-
+    #endregion
 }

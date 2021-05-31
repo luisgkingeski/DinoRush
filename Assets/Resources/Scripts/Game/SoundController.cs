@@ -2,22 +2,35 @@
 
 public class SoundController : SingletonMonobehaviour<SoundController>
 {
+    #region References
+
     public AudioSource jump;
     public AudioSource run;
     public AudioSource death;
 
+    #endregion
+
+    #region MonoBehaviour Callbacks
 
     void Start()
     {
         SetVolume();
     }
 
-    void SetVolume()
+    #endregion
+
+    #region Private Methods
+
+    private void SetVolume()
     {
         jump.volume = PlayerPrefs.GetFloat("Volume");
         run.volume = PlayerPrefs.GetFloat("Volume");
         death.volume = PlayerPrefs.GetFloat("Volume");
     }
+
+    #endregion
+
+    #region Public Methods
 
     public void PlayJump()
     {
@@ -32,7 +45,7 @@ public class SoundController : SingletonMonobehaviour<SoundController>
 
     public void PlayRun()
     {
-            run.Play();        
+        run.Play();
     }
 
 
@@ -41,11 +54,14 @@ public class SoundController : SingletonMonobehaviour<SoundController>
         run.Stop();
     }
 
-
     public void StopAll()
     {
         run.Stop();
         jump.Stop();
         death.Stop();
     }
+
+    #endregion
+
+
 }

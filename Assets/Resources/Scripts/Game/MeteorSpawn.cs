@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MeteorSpawn : SingletonMonobehaviour<MeteorSpawn>
@@ -38,13 +37,16 @@ public class MeteorSpawn : SingletonMonobehaviour<MeteorSpawn>
 
     IEnumerator Spawn()
     {
-        int signal = Random.Range(0,2);
+        int signal = Random.Range(0, 2);
 
         if (signal == 0)
         {
             signal = -1;
         }
-        else signal = 1;
+        else
+        {
+            signal = 1;
+        }
 
         transform.position = new Vector3(Player.Instance.transform.position.x + 40, transform.position.y, transform.position.z);
         transform.position = new Vector3((transform.position.x + (Random.Range(0f, 4f)) * signal), transform.position.y, 10);

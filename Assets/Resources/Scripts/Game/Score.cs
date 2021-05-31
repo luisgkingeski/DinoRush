@@ -24,7 +24,7 @@ public class Score : SingletonMonobehaviour<Score>
     void Start()
     {
         StartCoroutine(LateStart(0.1f));
-       
+
     }
 
     #endregion
@@ -54,9 +54,5 @@ public class Score : SingletonMonobehaviour<Score>
     }
 
     #endregion
-
-
-
-
 
 }

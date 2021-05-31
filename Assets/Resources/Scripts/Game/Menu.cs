@@ -4,12 +4,16 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    #region References
 
     public GameObject optionsObj;
     public GameObject menuObj;
     public Slider volumeSlider, sizeSlider;
     public Text sizeLabel;
 
+    #endregion
+
+    #region MonoBehaviour Callbacks
 
     void Start()
     {
@@ -19,12 +23,20 @@ public class Menu : MonoBehaviour
         ClearPlayerPrefs();
     }
 
+    #endregion
+
+    #region Private Methods
+
     private void ClearPlayerPrefs()
     {
         PlayerPrefs.SetInt("Deaths", 0);
         PlayerPrefs.SetInt("DeathByMeteor", 0);
         PlayerPrefs.SetInt("DeathByFall", 0);
     }
+
+    #endregion
+
+    #region Public Methods
 
     public void UpdateVolume()
     {
@@ -59,4 +71,5 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
+    #endregion
 }

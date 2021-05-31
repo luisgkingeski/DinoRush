@@ -1,11 +1,22 @@
 ﻿using System.Collections.Generic;
-using UnityEngine.Analytics;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
 {
-    private string progress;
+    #region References
+
     private ProgressBar progressBar;
+
+    #endregion
+
+    #region Variables
+
+    private string progress;
+
+    #endregion
+
+    #region MonoBehaviour Callbacks
 
     private void Start()
     {
@@ -13,6 +24,16 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
     }
 
     private void Update()
+    {
+        SetLimits();
+    }
+
+    #endregion
+
+    #region Private Methods
+
+
+    private void SetLimits()
     {
         int progressValue = (int)progressBar.distancePercent * 100;
 
@@ -24,8 +45,12 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
         {
             progressValue = 0;
         }
-        progress = progressValue.ToString() + "%";   
+        progress = progressValue.ToString() + "%";
     }
+
+    #endregion
+
+    #region Public Methods
 
     public void LevelStart()
     {
@@ -36,7 +61,7 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
                 {"Size", ScenarioGenerator.Instance.levelSize}
           }
           );
-        
+
         print("LevelStart" + analyticsResult);
     }
 
@@ -54,8 +79,6 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
 
         print("LevelEnd" + analyticsResult);
     }
-
-
 
     public void DeathByMeteor(int count, string score)
     {
@@ -98,6 +121,5 @@ public class AnalyticsManager : SingletonMonobehaviour<AnalyticsManager>
         print("ShowAd" + analyticsResult);
     }
 
-
-
+    #endregion
 }

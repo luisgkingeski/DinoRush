@@ -4,9 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class ADS : SingletonMonobehaviour<ADS>
 {
+    #region Variables
+
     string gameId = "1234567";
     string mySurfacingId = "rewardedVideo";
     bool testMode = true;
+
+    #endregion
+
+    #region MonoBehaviour Callbacks
 
     void Start()
     {
@@ -22,12 +28,14 @@ public class ADS : SingletonMonobehaviour<ADS>
         }
     }
 
+    #endregion
+
+    #region Public Methods
     private void StopGame()
     {
         Music.Instance.StopMusic();
         SoundController.Instance.StopAll();
     }
-
 
     public void ShowRewardedVideo()
     {
@@ -44,13 +52,17 @@ public class ADS : SingletonMonobehaviour<ADS>
         AnalyticsManager.Instance.ShowAd();
     }
 
+    #endregion
+
+    #region Private Methods
+
     private void HandleShowResult(ShowResult result)
     {
         switch (result)
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                Music.Instance.PlayMusic();                
+                Music.Instance.PlayMusic();
                 SceneManager.LoadScene("Post");
 
                 break;
@@ -64,7 +76,5 @@ public class ADS : SingletonMonobehaviour<ADS>
                 break;
         }
     }
-
-
-
+    #endregion
 }

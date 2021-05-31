@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -29,7 +27,7 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(player.position.x, -1.9f, transform.position.z);
         }
 
-        
+
     }
 
 

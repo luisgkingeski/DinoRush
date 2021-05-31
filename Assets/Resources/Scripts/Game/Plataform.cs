@@ -46,8 +46,4 @@ public class Plataform : MonoBehaviour
 
     #region Private Methods
     #endregion
-
-
-
-
 }

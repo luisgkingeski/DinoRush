@@ -33,7 +33,7 @@ public class ScenarioGenerator : SingletonMonobehaviour<ScenarioGenerator>
         plataformsList = new List<GameObject>();
         finalplataformChilds = new List<GameObject>();
         GenerateScenario();
-        
+
     }
 
 

@@ -83,7 +83,7 @@ public class Player : SingletonMonobehaviour<Player>
         if (collision.gameObject.layer == LayerMask.NameToLayer("Final"))
         {
             analyticsManager.LevelEnd(timer, score.scoreString);
-           
+
             PlayerPrefs.SetString("LastScore", score.scoreString);
             PlayerPrefs.SetString("Status", "Completed");
             PlayerPrefs.SetFloat("Time", timer);
@@ -168,7 +168,7 @@ public class Player : SingletonMonobehaviour<Player>
         if (isGrounded)
         {
             anim.SetBool("Jump", false);
-            if(direction != 0 && !SoundController.Instance.run.isPlaying)
+            if (direction != 0 && !SoundController.Instance.run.isPlaying)
             {
                 SoundController.Instance.PlayRun();
             }
